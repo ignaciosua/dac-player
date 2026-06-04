@@ -42,7 +42,7 @@
 
 ### 🎵 Original (192 kbps MP3) - 711 KB
 
-https://github.com/ignaciosua/dac-player/assets/33705876/original-30s.mp4
+<video src="examples/original-30s.mp4" controls width="100%"></video>
 
 **Reference source** - Standard MP3 compression at 192 kbps
 
@@ -50,7 +50,7 @@ https://github.com/ignaciosua/dac-player/assets/33705876/original-30s.mp4
 
 ### 🗜️ DAC 6 kbps (6 codebooks) - 46 KB compressed → **32x compression ratio**
 
-https://github.com/ignaciosua/dac-player/assets/33705876/restored-6kbps-30s.mp4
+<video src="examples/restored-6kbps-30s.mp4" controls width="100%"></video>
 
 **Transparent quality** - Ideal for archival/streaming at extreme compression. Hard to distinguish from original.
 
@@ -58,7 +58,7 @@ https://github.com/ignaciosua/dac-player/assets/33705876/restored-6kbps-30s.mp4
 
 ### 🗜️ DAC 9 kbps (9 codebooks) - 69 KB compressed → **21x compression ratio**
 
-https://github.com/ignaciosua/dac-player/assets/33705876/restored-9kbps-30s.mp4
+<video src="examples/restored-9kbps-30s.mp4" controls width="100%"></video>
 
 **Near-perfect reconstruction** - Extremely difficult to distinguish from original, even in blind A/B tests.
 
