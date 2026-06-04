@@ -41,13 +41,17 @@ temp_decode/
 *.ncmp
 *.dac*cb.ncmp
 
-# Audio files (too large)
+# Audio files (too large) - except examples
 *.mp3
 *.wav
 *.flac
 *.m4a
 *.aac
 *.ogg
+
+# Allow example files
+!examples/*.mp3
+!examples/*.wav
 *.opus
 
 # Logs
