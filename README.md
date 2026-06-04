@@ -38,33 +38,31 @@
 
 **Listen to compression quality with 30-second samples** (from "Blind Life Master" by ignaciosua_h, starting at 1:00 where the music is fully developed):
 
+<div align="center">
+
 ### 🎵 Original (192 kbps MP3) - 711 KB
-<audio controls>
-  <source src="examples/original-30s.mp3" type="audio/mpeg">
-  Your browser does not support audio playback. <a href="examples/original-30s.mp3">Download MP3</a>
-</audio>
+
+[![Listen to Original](https://img.shields.io/badge/▶️_Listen-Original_192_kbps-blue?style=for-the-badge&logo=audio-technica&logoColor=white)](https://github.com/ignaciosua/dac-player/raw/main/examples/original-30s.mp3)
 
 **Reference source** - Standard MP3 compression at 192 kbps
 
 ---
 
 ### 🗜️ DAC 6 kbps (6 codebooks) - 46 KB compressed → **32x compression ratio**
-<audio controls>
-  <source src="examples/restored-6kbps-30s.mp3" type="audio/mpeg">
-  Your browser does not support audio playback. <a href="examples/restored-6kbps-30s.mp3">Download MP3</a>
-</audio>
 
-**Transparent quality** - Ideal for archival/streaming at extreme compression. Hard to distinguish from original in casual listening.
+[![Listen to 6 kbps](https://img.shields.io/badge/▶️_Listen-DAC_6_kbps-green?style=for-the-badge&logo=audio-technica&logoColor=white)](https://github.com/ignaciosua/dac-player/raw/main/examples/restored-6kbps-30s.mp3)
+
+**Transparent quality** - Ideal for archival/streaming at extreme compression. Hard to distinguish from original.
 
 ---
 
 ### 🗜️ DAC 9 kbps (9 codebooks) - 69 KB compressed → **21x compression ratio**
-<audio controls>
-  <source src="examples/restored-9kbps-30s.mp3" type="audio/mpeg">
-  Your browser does not support audio playback. <a href="examples/restored-9kbps-30s.mp3">Download MP3</a>
-</audio>
+
+[![Listen to 9 kbps](https://img.shields.io/badge/▶️_Listen-DAC_9_kbps-orange?style=for-the-badge&logo=audio-technica&logoColor=white)](https://github.com/ignaciosua/dac-player/raw/main/examples/restored-9kbps-30s.mp3)
 
 **Near-perfect reconstruction** - Extremely difficult to distinguish from original, even in blind A/B tests.
+
+</div>
 
 ---
 
@@ -73,9 +71,9 @@
 - **Compare clarity** - Listen for preservation of vocals, instruments, and stereo imaging
 - **Artifacts** - Neural compression avoids typical MP3/AAC artifacts (ringing, pre-echo)
 - **Dynamics** - Notice how transients and bass response are maintained even at 6 kbps
-- **File size** - Same 30 seconds: 711 KB (original) vs 46 KB (6 kbps) = 15.5x smaller!
+- **File size** - Same 30 seconds: 711 KB (original) vs 46 KB (6 kbps) = **15.5x smaller!**
 
-**Use headphones for best comparison.** The differences are subtle but noticeable with good audio equipment.
+**💡 Tip:** Click any badge above to download and play in your media player. Use headphones for best comparison.
 
 ---
 
