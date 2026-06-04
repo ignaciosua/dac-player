@@ -34,6 +34,30 @@
 
 ---
 
+## 🎧 Audio Examples
+
+**Listen to compression quality with 30-second samples** (from "Blind Life Master" by ignaciosua_h, starting at 1:00 where the music is fully developed):
+
+### 📊 Comparison Table
+
+| Version | Bitrate | Compression Ratio | File Size | Audio Sample |
+|---------|---------|------------------|-----------|--------------|
+| **Original** | 192 kbps (MP3) | 1x | 711 KB | [▶️ Play Original](examples/original-30s.mp3?raw=true) |
+| **DAC 6 kbps** | 6 kbps (6 codebooks) | 32x vs original | 46 KB* | [▶️ Play 6 kbps](examples/restored-6kbps-30s.mp3?raw=true) |
+| **DAC 9 kbps** | 9 kbps (9 codebooks) | 21x vs original | 69 KB* | [▶️ Play 9 kbps](examples/restored-9kbps-30s.mp3?raw=true) |
+
+*\*Compressed `.ncmp` file size. Restored files are 192 kbps MP3 for GitHub playback compatibility.*
+
+### 🔍 What to Listen For
+
+- **6 kbps**: Transparent quality for most music - ideal for archival/streaming at extreme compression
+- **9 kbps**: Near-perfect reconstruction - hard to distinguish from original in blind tests
+- **Original**: Reference MP3 source (already lossy compressed)
+
+**Try it yourself!** Click the ▶️ Play links above to hear the difference. GitHub will open an audio player for direct comparison.
+
+---
+
 ## 🚀 Quick Start
 
 ### Windows Installation
