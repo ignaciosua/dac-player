@@ -49,9 +49,16 @@ temp_decode/
 *.aac
 *.ogg
 
+# Video files (too large) - except examples
+*.mp4
+*.avi
+*.mov
+*.mkv
+
 # Allow example files
 !examples/*.mp3
 !examples/*.wav
+!examples/*.mp4
 *.opus
 
 # Logs

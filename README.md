@@ -42,7 +42,7 @@
 
 ### 🎵 Original (192 kbps MP3) - 711 KB
 
-[![Listen to Original](https://img.shields.io/badge/▶️_Listen-Original_192_kbps-blue?style=for-the-badge&logo=audio-technica&logoColor=white)](https://github.com/ignaciosua/dac-player/raw/main/examples/original-30s.mp3)
+https://github.com/ignaciosua/dac-player/assets/33705876/original-30s.mp4
 
 **Reference source** - Standard MP3 compression at 192 kbps
 
@@ -50,7 +50,7 @@
 
 ### 🗜️ DAC 6 kbps (6 codebooks) - 46 KB compressed → **32x compression ratio**
 
-[![Listen to 6 kbps](https://img.shields.io/badge/▶️_Listen-DAC_6_kbps-green?style=for-the-badge&logo=audio-technica&logoColor=white)](https://github.com/ignaciosua/dac-player/raw/main/examples/restored-6kbps-30s.mp3)
+https://github.com/ignaciosua/dac-player/assets/33705876/restored-6kbps-30s.mp4
 
 **Transparent quality** - Ideal for archival/streaming at extreme compression. Hard to distinguish from original.
 
@@ -58,7 +58,7 @@
 
 ### 🗜️ DAC 9 kbps (9 codebooks) - 69 KB compressed → **21x compression ratio**
 
-[![Listen to 9 kbps](https://img.shields.io/badge/▶️_Listen-DAC_9_kbps-orange?style=for-the-badge&logo=audio-technica&logoColor=white)](https://github.com/ignaciosua/dac-player/raw/main/examples/restored-9kbps-30s.mp3)
+https://github.com/ignaciosua/dac-player/assets/33705876/restored-9kbps-30s.mp4
 
 **Near-perfect reconstruction** - Extremely difficult to distinguish from original, even in blind A/B tests.
 
@@ -73,7 +73,7 @@
 - **Dynamics** - Notice how transients and bass response are maintained even at 6 kbps
 - **File size** - Same 30 seconds: 711 KB (original) vs 46 KB (6 kbps) = **15.5x smaller!**
 
-**💡 Tip:** Click any badge above to download and play in your media player. Use headphones for best comparison.
+**💡 Tip:** Click play on the videos above to hear the audio directly in your browser. Use headphones for best comparison.
 
 ---
 
