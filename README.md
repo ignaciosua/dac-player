@@ -39,21 +39,76 @@ Full-featured music player with waveform visualization and playlist management.
 3. Wait for dependencies to download (~1.1 GB)
 4. The GUI will launch automatically
 
+### Mac/Linux Installation (AI Assistant Setup)
+
+**Prerequisites:**
+- **Mac**: Python 3.11+ (install with `brew install python@3.11` if needed)
+- **Linux**: Python 3.11+ (usually pre-installed, or `sudo apt install python3.11 python3.11-venv`)
+- **Both**: ffmpeg (`brew install ffmpeg` on Mac, `sudo apt install ffmpeg` on Linux)
+
+**AI-Assisted Installation:**
+
+Copy and paste this prompt to **Claude, GitHub Copilot Chat, or ChatGPT** to automatically set up DAC6:
+
+```
+Please help me install DAC6 Audio Compressor on my system. Follow these steps:
+
+1. Check if Python 3.11+ is installed (python3 --version). If not, guide me to install it.
+
+2. Check if ffmpeg is installed (ffmpeg -version). If not, install it:
+   - Mac: brew install ffmpeg
+   - Linux: sudo apt install ffmpeg
+
+3. Clone the repository:
+   git clone https://github.com/ignaciosua/dac-player.git
+   cd dac-player
+
+4. Create and activate virtual environment:
+   python3 -m venv .venv
+   source .venv/bin/activate
+
+5. Install PyTorch (CPU version for Mac, CUDA for Linux with NVIDIA GPU):
+   - Mac/Linux CPU: pip install torch torchvision torchaudio
+   - Linux CUDA: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+6. Install DAC6 dependencies:
+   pip install descript-audio-codec descript-audiotools soundfile sounddevice customtkinter tkinterdnd2 "numpy<2"
+
+7. Test the installation by running:
+   python dac6_gui.py
+
+If you encounter any errors, diagnose the issue and provide a fix.
+My OS: [specify: macOS/Linux]
+My Python version: [run: python3 --version]
+```
+
+The AI will execute these commands and help troubleshoot any issues.
+
 ### Manual Installation
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/dac6-audio-compressor.git
-cd dac6-audio-compressor
+git clone https://github.com/ignaciosua/dac-player.git
+cd dac-player
 
 # Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate  # Windows
-# source .venv/bin/activate  # Linux/Mac
+python3 -m venv .venv
+source .venv/bin/activate  # Mac/Linux
+# .venv\Scripts\activate  # Windows
 
-# Install dependencies
+# Install PyTorch
+# For Mac/Linux CPU:
+pip install torch torchvision torchaudio
+
+# For Linux with NVIDIA GPU:
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install descript-audio-codec audiotools customtkinter sounddevice
+
+# Install DAC6 dependencies
+pip install descript-audio-codec descript-audiotools soundfile sounddevice customtkinter tkinterdnd2 "numpy<2"
+
+# Install ffmpeg (if not already installed)
+# Mac: brew install ffmpeg
+# Linux: sudo apt install ffmpeg
 
 # Run GUI
 python dac6_gui.py
@@ -151,19 +206,40 @@ python dac6.py info input.dac9cb.ncmp
 ## 📋 Requirements
 
 ### System Requirements
-- **OS**: Windows 10/11, Linux, macOS
-- **Python**: 3.11+
-- **Disk Space**: 2-3 GB (models + dependencies)
+- **OS**: Windows 10/11, Linux (Ubuntu 20.04+, Debian, Fedora), macOS 11+
+- **Python**: 3.11+ (3.11.9 recommended)
+- **Disk Space**: 2-3 GB (PyTorch + DAC models + dependencies)
 - **RAM**: 4 GB minimum, 8 GB recommended
-- **GPU**: NVIDIA GPU with CUDA support (optional, CPU fallback available)
+- **GPU**: NVIDIA GPU with CUDA support (optional, CPU mode works on all platforms)
 
-### Dependencies
-- PyTorch 2.0+
-- descript-audio-codec
-- audiotools
-- customtkinter
-- sounddevice
-- ffmpeg (included in setup)
+### Platform-Specific Requirements
+
+**Windows:**
+- Automatic installation via `DAC6_Setup.bat`
+- Python auto-downloaded if not present
+- ffmpeg auto-downloaded during setup
+
+**macOS:**
+- Python 3.11+: `brew install python@3.11` (if not installed)
+- ffmpeg: `brew install ffmpeg`
+- Xcode Command Line Tools: `xcode-select --install`
+
+**Linux:**
+- Python 3.11+: Pre-installed on most distros, or `sudo apt install python3.11 python3.11-venv`
+- ffmpeg: `sudo apt install ffmpeg` (Debian/Ubuntu) or `sudo yum install ffmpeg` (Fedora/RHEL)
+- Build tools: `sudo apt install build-essential python3-dev portaudio19-dev`
+
+### Python Dependencies
+- PyTorch 2.0+ (CUDA 12.1 for NVIDIA GPUs, CPU-only for Mac/systems without GPU)
+- descript-audio-codec (neural audio codec)
+- descript-audiotools (audio processing utilities)
+- soundfile (audio I/O)
+- sounddevice (real-time audio playback)
+- customtkinter (modern GUI framework)
+- tkinterdnd2 (drag & drop support)
+- numpy <2.0 (compatibility requirement)
+
+**Note:** All Python dependencies are automatically installed during setup. The DAC model (~293 MB) downloads automatically on first use to `~/.cache/descript/dac/`.
 
 ---
 
@@ -171,27 +247,61 @@ python dac6.py info input.dac9cb.ncmp
 
 ### Installation Issues
 
+**Windows:**
 If setup fails, run the diagnostic tool:
 ```bash
 Diagnostic_Check.bat
 ```
 
-Check the output and review `DIAGNOSTIC_INFO.txt` for system compatibility.
+**Mac/Linux:**
+If you encounter issues, verify your setup:
+```bash
+# Check Python version (must be 3.11+)
+python3 --version
+
+# Check ffmpeg installation
+ffmpeg -version
+
+# Check if virtual environment is activated
+which python  # Should show .venv/bin/python
+
+# View installation logs
+cat dac6.log
+```
+
+For AI-assisted troubleshooting, paste any error messages to Claude/Copilot/ChatGPT along with your OS and Python version.
 
 ### Common Problems
 
 **"CUDA out of memory"**
-- Reduce chunk size to 30-60s
+- Reduce chunk size to 30-60s in settings
 - Close other GPU applications
-- Use CPU mode (slower but works)
+- Use CPU mode (slower but works on all systems)
 
-**"Module not found"**
-- Ensure virtual environment is activated
-- Re-run `DAC6_Setup.bat`
+**"Module not found" / Import errors**
+- Ensure virtual environment is activated: `source .venv/bin/activate`
+- Windows: Re-run `DAC6_Setup.bat`
+- Mac/Linux: Reinstall dependencies: `pip install -r requirements.txt` (if available) or run the installation commands again
 
 **"ffmpeg not found"**
-- Run setup script to download ffmpeg
-- Or manually place ffmpeg in `bin/` folder
+- **Windows**: Run `DAC6_Setup.bat` again (auto-downloads ffmpeg)
+- **Mac**: `brew install ffmpeg`
+- **Linux**: `sudo apt install ffmpeg` or `sudo yum install ffmpeg`
+
+**"portaudio" or "sounddevice" errors (Mac/Linux)**
+- **Mac**: `brew install portaudio`
+- **Ubuntu/Debian**: `sudo apt install portaudio19-dev python3-dev`
+- **Fedora/RHEL**: `sudo yum install portaudio-devel python3-devel`
+- Then reinstall: `pip install --force-reinstall sounddevice`
+
+**"tkinter not found" (Linux)**
+- **Ubuntu/Debian**: `sudo apt install python3-tk`
+- **Fedora/RHEL**: `sudo yum install python3-tkinter`
+
+**Permission errors (Mac/Linux)**
+- Don't use `sudo` with pip when in a virtual environment
+- If you need to install system packages, use your package manager (brew/apt/yum) with sudo
+- Virtual environment packages should install without sudo
 
 ### Logs
 
