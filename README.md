@@ -17,16 +17,20 @@
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshot
 
-### Main Interface - Compress Tab
-The neural audio compressor with batch file processing and configurable quality settings.
+### DAC6 Player Interface
 
-### A/B Test Tab
-Compare original vs compressed audio with synchronized dual-player interface.
+![DAC6 Player - Music player with playlist, waveform visualization, and playback controls](dac6-player-screenshot.png)
 
-### Built-in Player
-Full-featured music player with waveform visualization and playlist management.
+**Features shown:**
+- **4 Tabs**: PLAYER, COMPRESS, RESTORE, A/B TEST
+- **Playlist Queue** with pre-decoded tracks (✓ checkmarks indicate ready-to-play)
+- **Waveform Visualization** with seek capability
+- **Playback Controls**: Previous, Play/Pause, Next, Skip (<<, <, ▶/⏸, >, >>)
+- **Loop Modes**: Shuffle, Loop One, Loop All
+- **Volume Control** with real-time adjustment
+- **Now Playing** display with track name and status
 
 ---
 
