@@ -1,0 +1,181 @@
+===============================================
+  COMO HOSTEAR DAC6 EN TU PROPIO SERVIDOR
+===============================================
+
+Si los servidores originales (python.org, pytorch.org, gyan.dev)
+dejan de estar disponibles, puedes hostear las dependencias en
+tu propio servidor y modificar DAC6_Setup.bat para que las descargue
+desde ahí.
+
+===============================================
+  PASO 1: CREAR EL BACKUP
+===============================================
+
+1. Ejecuta: create_backup.bat
+2. Espera que descargue todo (~3.5 GB)
+3. Verifica que backup/ contenga todos los archivos
+
+===============================================
+  PASO 2: SUBIR AL SERVIDOR
+===============================================
+
+Sube el contenido de la carpeta backup/ a tu servidor web.
+
+Estructura recomendada en tu servidor:
+
+https://tuservidor.com/dac6/
+├── python/
+│   └── python-3.11.9-amd64.exe
+├── pytorch/
+│   └── [archivos .whl]
+├── dac/
+│   └── [archivos .pth]
+├── ffmpeg/
+│   └── ffmpeg-release-essentials.zip
+└── pip_packages/
+    └── [archivos .whl]
+
+===============================================
+  PASO 3: MODIFICAR DAC6_Setup.bat
+===============================================
+
+Abre DAC6_Setup.bat con un editor de texto y modifica estas líneas:
+
+----------------------------------------------------
+CAMBIO 1: URL de Python (línea ~45)
+----------------------------------------------------
+
+ORIGINAL:
+  "Invoke-WebRequest 'https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe' -OutFile '%TEMP%\py_setup.exe' -UseBasicParsing"
+
+MODIFICADO:
+  "Invoke-WebRequest 'https://tuservidor.com/dac6/python/python-3.11.9-amd64.exe' -OutFile '%TEMP%\py_setup.exe' -UseBasicParsing"
+
+----------------------------------------------------
+CAMBIO 2: Index URL de PyTorch (línea ~95)
+----------------------------------------------------
+
+ORIGINAL:
+  "%PIP%" install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 --quiet
+
+MODIFICADO (usando archivos locales del servidor):
+  "%PIP%" install --no-index --find-links=https://tuservidor.com/dac6/pytorch torch torchvision torchaudio --quiet
+
+----------------------------------------------------
+CAMBIO 3: URL de ffmpeg (línea ~165)
+----------------------------------------------------
+
+ORIGINAL:
+  "Invoke-WebRequest 'https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip' -OutFile '%TEMP%\ffmpeg.zip' -UseBasicParsing"
+
+MODIFICADO:
+  "Invoke-WebRequest 'https://tuservidor.com/dac6/ffmpeg/ffmpeg-release-essentials.zip' -OutFile '%TEMP%\ffmpeg.zip' -UseBasicParsing"
+
+----------------------------------------------------
+CAMBIO 4: Base URL de DAC weights (línea ~120, OPCIONAL)
+----------------------------------------------------
+
+Por defecto, DAC descarga sus weights desde:
+https://github.com/descriptinc/descript-audio-codec/releases
+
+Si quieres hostear los weights, necesitarías modificar el código
+de descript-audio-codec directamente (avanzado).
+
+Alternativa más simple: Los weights se descargan automáticamente
+la primera vez. Si los servidores caen, los usuarios pueden copiar
+manualmente los .pth a %USERPROFILE%\.cache\descript\dac\
+
+===============================================
+  PASO 4: DISTRIBUIR
+===============================================
+
+Distribuye tu versión modificada de DAC6_Setup.bat junto con
+los archivos principales:
+
+- DAC6_Setup.bat (modificado)
+- dac6_gui.py
+- dac6_worker.py
+- dac6.py
+- README.txt
+
+Los usuarios ejecutarán tu DAC6_Setup.bat modificado y las
+dependencias se descargarán desde tu servidor.
+
+===============================================
+  CONFIGURACION DEL SERVIDOR WEB
+===============================================
+
+Requisitos mínimos del servidor:
+- Espacio: 5 GB
+- Ancho de banda: Depende del número de usuarios
+- HTTPS recomendado (pero HTTP funciona)
+
+Configuración recomendada:
+- Habilita directory listing o index files
+- Configura CORS si es necesario
+- Comprime archivos grandes (opcional)
+
+Ejemplo de configuración Apache (.htaccess):
+
+    Options +Indexes
+    Header set Access-Control-Allow-Origin "*"
+    AddOutputFilterByType DEFLATE application/x-executable
+
+===============================================
+  ALTERNATIVA: REPOSITORIO GIT LFS
+===============================================
+
+Si no tienes servidor propio, puedes usar GitHub con Git LFS:
+
+1. Crea un repositorio privado/público
+2. Habilita Git LFS para archivos grandes
+3. Sube los archivos del backup
+4. Usa URLs raw de GitHub en DAC6_Setup.bat
+
+Ejemplo:
+https://raw.githubusercontent.com/usuario/dac6-backup/main/python/python-3.11.9-amd64.exe
+
+LIMITACION: GitHub tiene límite de ancho de banda (1 GB/mes gratis)
+
+===============================================
+  TESTING
+===============================================
+
+Antes de distribuir, prueba tu setup modificado:
+
+1. Borra tu .venv local
+2. Ejecuta tu DAC6_Setup.bat modificado
+3. Verifica que descargue TODO desde tu servidor
+4. Verifica que la GUI funcione correctamente
+
+===============================================
+  CHECKSUM VERIFICATION (OPCIONAL)
+===============================================
+
+Para asegurar integridad de archivos, puedes agregar verificación
+de checksums en DAC6_Setup.bat:
+
+# Generar checksums de tu backup
+powershell -Command "Get-ChildItem backup -Recurse -File | Get-FileHash | Export-Csv checksums.csv"
+
+# Agregar verificación en DAC6_Setup.bat
+Después de descargar cada archivo, verifica su hash SHA256.
+
+===============================================
+  CONTACTO Y SOPORTE
+===============================================
+
+Si hosteas DAC6 en tu servidor, considera:
+- Documentar la URL en README.txt
+- Proveer un canal de soporte (email, GitHub Issues)
+- Mantener backups de las dependencias
+- Actualizar cuando salgan nuevas versiones
+
+===============================================
+  VERSION DE ESTE GUIDE
+===============================================
+
+Creado: Junio 2026
+Basado en: DAC6 v1.0
+Python: 3.11.9
+PyTorch: 2.5.1+cu121

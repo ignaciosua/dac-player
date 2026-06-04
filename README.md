@@ -36,44 +36,11 @@
 
 ## 🎧 Audio Examples
 
-**Listen to compression quality with 30-second samples** (from "Blind Life Master" by ignaciosua_h, starting at 1:00 where the music is fully developed):
+**Want to hear how DAC compression sounds?**
 
-<div align="center">
+Visit the official **[Descript Audio Codec demo page](https://descript.notion.site/Descript-Audio-Codec-11389fce0ce2419891d6591a68f814d5)** to listen to high-quality examples comparing original audio with DAC-compressed versions at various bitrates.
 
-### 🎵 Original (192 kbps MP3) - 711 KB
-
-<video src="examples/original-30s.mp4" controls width="100%"></video>
-
-**Reference source** - Standard MP3 compression at 192 kbps
-
----
-
-### 🗜️ DAC 6 kbps (6 codebooks) - 46 KB compressed → **32x compression ratio**
-
-<video src="examples/restored-6kbps-30s.mp4" controls width="100%"></video>
-
-**Transparent quality** - Ideal for archival/streaming at extreme compression. Hard to distinguish from original.
-
----
-
-### 🗜️ DAC 9 kbps (9 codebooks) - 69 KB compressed → **21x compression ratio**
-
-<video src="examples/restored-9kbps-30s.mp4" controls width="100%"></video>
-
-**Near-perfect reconstruction** - Extremely difficult to distinguish from original, even in blind A/B tests.
-
-</div>
-
----
-
-### 🔍 What to Listen For
-
-- **Compare clarity** - Listen for preservation of vocals, instruments, and stereo imaging
-- **Artifacts** - Neural compression avoids typical MP3/AAC artifacts (ringing, pre-echo)
-- **Dynamics** - Notice how transients and bass response are maintained even at 6 kbps
-- **File size** - Same 30 seconds: 711 KB (original) vs 46 KB (6 kbps) = **15.5x smaller!**
-
-**💡 Tip:** Click play on the videos above to hear the audio directly in your browser. Use headphones for best comparison.
+The demos showcase DAC's transparent quality at ultra-low bitrates (6-16 kbps) across different types of content including music, speech, and environmental sounds.
 
 ---
 

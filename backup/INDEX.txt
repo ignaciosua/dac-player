@@ -1,0 +1,161 @@
+===============================================
+  DAC6 BACKUP - INDEX DE ARCHIVOS
+===============================================
+
+Este archivo lista TODOS los archivos que deben estar en
+el backup completo. Usa este checklist para verificar que
+tu backup está completo.
+
+Después de ejecutar create_backup.bat, verifica que todos
+los archivos marcados con [REQUIRED] existan.
+
+===============================================
+  PYTHON
+===============================================
+
+[ ] python/python-3.11.9-amd64.exe
+    Tamaño esperado: ~25 MB
+    URL: https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe
+    SHA256: (ejecuta create_backup.bat para obtener)
+
+===============================================
+  PYTORCH WHEELS
+===============================================
+
+[ ] pytorch/torch-2.5.1+cu121-cp311-cp311-win_amd64.whl
+    Tamaño esperado: ~2.3 GB
+    REQUIRED: Sí
+
+[ ] pytorch/torchvision-0.20.1+cu121-cp311-cp311-win_amd64.whl
+    Tamaño esperado: ~5 MB
+    REQUIRED: Sí
+
+[ ] pytorch/torchaudio-2.5.1+cu121-cp311-cp311-win_amd64.whl
+    Tamaño esperado: ~3 MB
+    REQUIRED: Sí
+
+NOTA: Los nombres exactos de los archivos pueden variar según
+      la versión. Busca archivos que coincidan con el patrón:
+      torch-*+cu121-cp311-cp311-win_amd64.whl
+
+===============================================
+  DAC MODEL WEIGHTS
+===============================================
+
+[ ] dac/weights_44khz_8kbps_0.0.1.pth
+    Tamaño esperado: ~293 MB
+    REQUIRED: Sí (modelo principal)
+
+[ ] dac/weights_24khz_0.0.1.pth
+    Tamaño esperado: ~293 MB
+    REQUIRED: No (opcional)
+
+[ ] dac/weights_16khz_0.0.1.pth
+    Tamaño esperado: ~293 MB
+    REQUIRED: No (opcional)
+
+NOTA: Estos archivos solo aparecen después de usar DAC6
+      por primera vez. Se descargan automáticamente según
+      el modelo usado.
+
+Ubicación original:
+%USERPROFILE%\.cache\descript\dac\
+
+===============================================
+  FFMPEG
+===============================================
+
+[ ] ffmpeg/ffmpeg-release-essentials.zip
+    Tamaño esperado: ~80 MB
+    URL: https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip
+    REQUIRED: Sí
+
+===============================================
+  PIP PACKAGES
+===============================================
+
+Los nombres exactos varían según versiones. Busca estos paquetes:
+
+[ ] pip_packages/descript_audio_codec-*.whl
+[ ] pip_packages/audiotools-*.whl
+[ ] pip_packages/soundfile-*.whl
+[ ] pip_packages/sounddevice-*.whl
+[ ] pip_packages/customtkinter-*.whl
+[ ] pip_packages/tkinterdnd2-*.whl
+[ ] pip_packages/numpy-1.*.whl (debe ser numpy<2)
+[ ] pip_packages/[otras dependencias]
+
+Total esperado: 20-30 archivos .whl
+Tamaño total: ~200 MB
+
+===============================================
+  DOCUMENTACION
+===============================================
+
+[ ] BACKUP_README.txt
+[ ] HOW_TO_HOST.txt
+[ ] INDEX.txt (este archivo)
+[ ] .gitignore
+
+===============================================
+  SCRIPTS
+===============================================
+
+[ ] scripts/install_offline.bat
+    Se genera automáticamente al ejecutar create_backup.bat
+
+===============================================
+  RESUMEN DE TAMAÑOS
+===============================================
+
+Python:              ~25 MB
+PyTorch wheels:      ~2.3 GB
+DAC weights (1):     ~293 MB
+DAC weights (3):     ~880 MB
+ffmpeg:              ~80 MB
+Pip packages:        ~200 MB
+--------------------------------
+TOTAL (mínimo):      ~2.7 GB
+TOTAL (completo):    ~3.5 GB
+
+===============================================
+  VERIFICACION DE INTEGRIDAD
+===============================================
+
+Después de crear el backup, ejecuta:
+
+powershell -Command "Get-ChildItem backup -Recurse -File | Where-Object {$_.Extension -in '.exe','.whl','.pth','.zip'} | Select-Object FullName,Length | Format-Table -AutoSize"
+
+Esto mostrará todos los archivos importantes y sus tamaños.
+
+===============================================
+  CHECKSUMS (para verificar integridad)
+===============================================
+
+Genera checksums con:
+
+powershell -Command "Get-ChildItem backup -Recurse -File | Where-Object {$_.Extension -in '.exe','.whl','.pth','.zip'} | Get-FileHash -Algorithm SHA256 | Select-Object Path,Hash | Export-Csv backup_checksums.csv"
+
+Guarda backup_checksums.csv junto con el backup para verificar
+integridad al restaurar o distribuir.
+
+===============================================
+  FECHA DE CREACION DEL BACKUP
+===============================================
+
+Llena esto después de ejecutar create_backup.bat:
+
+Fecha: _______________
+Total archivos: _______
+Tamaño total: _______ GB
+Ubicación: _________________
+
+===============================================
+  NOTAS
+===============================================
+
+- Verifica que todos los archivos [REQUIRED] existan
+- Los archivos opcionales pueden omitirse para ahorrar espacio
+- Guarda checksums para verificar integridad
+- Actualiza el backup cada 6-12 meses
+- Prueba el backup en una máquina limpia antes de distribuir
