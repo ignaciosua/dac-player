@@ -38,23 +38,44 @@
 
 **Listen to compression quality with 30-second samples** (from "Blind Life Master" by ignaciosua_h, starting at 1:00 where the music is fully developed):
 
-### 📊 Comparison Table
+### 🎵 Original (192 kbps MP3) - 711 KB
+<audio controls>
+  <source src="examples/original-30s.mp3" type="audio/mpeg">
+  Your browser does not support audio playback. <a href="examples/original-30s.mp3">Download MP3</a>
+</audio>
 
-| Version | Bitrate | Compression Ratio | File Size | Audio Sample |
-|---------|---------|------------------|-----------|--------------|
-| **Original** | 192 kbps (MP3) | 1x | 711 KB | [▶️ Play Original](examples/original-30s.mp3?raw=true) |
-| **DAC 6 kbps** | 6 kbps (6 codebooks) | 32x vs original | 46 KB* | [▶️ Play 6 kbps](examples/restored-6kbps-30s.mp3?raw=true) |
-| **DAC 9 kbps** | 9 kbps (9 codebooks) | 21x vs original | 69 KB* | [▶️ Play 9 kbps](examples/restored-9kbps-30s.mp3?raw=true) |
+**Reference source** - Standard MP3 compression at 192 kbps
 
-*\*Compressed `.ncmp` file size. Restored files are 192 kbps MP3 for GitHub playback compatibility.*
+---
+
+### 🗜️ DAC 6 kbps (6 codebooks) - 46 KB compressed → **32x compression ratio**
+<audio controls>
+  <source src="examples/restored-6kbps-30s.mp3" type="audio/mpeg">
+  Your browser does not support audio playback. <a href="examples/restored-6kbps-30s.mp3">Download MP3</a>
+</audio>
+
+**Transparent quality** - Ideal for archival/streaming at extreme compression. Hard to distinguish from original in casual listening.
+
+---
+
+### 🗜️ DAC 9 kbps (9 codebooks) - 69 KB compressed → **21x compression ratio**
+<audio controls>
+  <source src="examples/restored-9kbps-30s.mp3" type="audio/mpeg">
+  Your browser does not support audio playback. <a href="examples/restored-9kbps-30s.mp3">Download MP3</a>
+</audio>
+
+**Near-perfect reconstruction** - Extremely difficult to distinguish from original, even in blind A/B tests.
+
+---
 
 ### 🔍 What to Listen For
 
-- **6 kbps**: Transparent quality for most music - ideal for archival/streaming at extreme compression
-- **9 kbps**: Near-perfect reconstruction - hard to distinguish from original in blind tests
-- **Original**: Reference MP3 source (already lossy compressed)
+- **Compare clarity** - Listen for preservation of vocals, instruments, and stereo imaging
+- **Artifacts** - Neural compression avoids typical MP3/AAC artifacts (ringing, pre-echo)
+- **Dynamics** - Notice how transients and bass response are maintained even at 6 kbps
+- **File size** - Same 30 seconds: 711 KB (original) vs 46 KB (6 kbps) = 15.5x smaller!
 
-**Try it yourself!** Click the ▶️ Play links above to hear the difference. GitHub will open an audio player for direct comparison.
+**Use headphones for best comparison.** The differences are subtle but noticeable with good audio equipment.
 
 ---
 
