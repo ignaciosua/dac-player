@@ -1,0 +1,241 @@
+===============================================
+  DAC6 PLAYLIST PLAYER - CARACTERÍSTICAS
+===============================================
+
+El nuevo tab "PLAYER" en DAC6 es un reproductor completo de
+playlist con todas las funcionalidades de un reproductor moderno.
+
+===============================================
+  CARACTERÍSTICAS PRINCIPALES
+===============================================
+
+✓ Carga de archivos múltiples
+  - Soporte para .ncmp (decodifica automáticamente)
+  - Soporte para .wav, .mp3, .flac, .aac, .ogg, .m4a, .opus
+  - Agregar archivos individuales o carpetas completas
+
+✓ Controles de reproducción
+  - Play/Pause (▶/❚❚)
+  - Stop (■)
+  - Anterior (◄)
+  - Siguiente (►)
+  - Retroceder 10s (◄◄)
+  - Adelantar 10s (►►)
+
+✓ Modos de reproducción
+  - Shuffle: Orden aleatorio
+  - Loop One: Repetir canción actual
+  - Loop All: Repetir toda la playlist
+
+✓ Visualización
+  - Waveform con seek interactivo
+  - Progreso en tiempo real
+  - Lista de playlist visible con botones de play
+  - Highlight de la canción actual
+
+✓ Control de volumen
+  - Slider independiente (0-100%)
+
+===============================================
+  CÓMO USAR
+===============================================
+
+1. AGREGAR ARCHIVOS
+   -------------------
+   - Click en "Add Files" para seleccionar archivos
+   - Click en "Add Folder" para agregar todos los archivos
+     de una carpeta
+   - Los archivos se agregan a la cola/playlist
+
+2. REPRODUCIR
+   -----------
+   - Click en "▶" en el reproductor principal para empezar
+   - O click en "▶" junto a cualquier archivo en la lista
+     para reproducirlo directamente
+   - Use los controles de navegación para moverte entre tracks
+
+3. MODOS
+   ------
+   - "Shuffle": Activa orden aleatorio
+   - "Loop One": Repite la canción actual infinitamente
+   - "Loop All": Cuando termina la playlist, vuelve al inicio
+   
+   NOTA: Loop One y Loop All son mutuamente excluyentes
+
+4. NAVEGACIÓN
+   -----------
+   - Click en la waveform para saltar a cualquier posición
+   - ◄◄ / ►► para retroceder/adelantar 10 segundos
+   - ◄ / ► para cambiar de canción
+
+5. ARCHIVOS .NCMP (PRE-DECODIFICACIÓN INTELIGENTE)
+   -------------------------------------------------
+   Los archivos .ncmp usan PRE-DECODIFICACIÓN automática
+   para reproducción instantánea:
+   
+   ╔═══════════════════════════════════════════════════════════╗
+   ║ 🎯 SISTEMA DE PRE-DECODIFICACIÓN CON INDICADORES        ║
+   ╚═══════════════════════════════════════════════════════════╝
+   
+   Cuando agregas archivos .ncmp al playlist:
+   
+   1. Los archivos aparecen en la lista con indicador ⏳
+   2. En BACKGROUND, el sistema decodifica TODOS los .ncmp
+      del playlist en orden automáticamente
+   3. Cuando un archivo termina de decodificar: aparece ✓
+   4. Solo puedes reproducir archivos con ✓
+   
+   ╔═══════════════════════════════════════════════════════════╗
+   ║ 📋 INDICADORES VISUALES EN EL PLAYLIST                   ║
+   ╚═══════════════════════════════════════════════════════════╝
+   
+   ✓ = Archivo listo para reproducir (cacheado)
+   ⏳ = Archivo decodificándose (espera a que aparezca ✓)
+   
+   Ejemplo visual del playlist:
+   
+   1. ✓ Blind Life Master.dac6cb.ncmp    ▶  ← Listo
+   2. ⏳ Another Song.dac6cb.ncmp        ▷  ← Decodificando
+   3. ⏳ Track 3.dac6cb.ncmp             ▷  ← Pendiente
+   4. ✓ Normal Audio.wav                ▶  ← Listo (no requiere decode)
+   
+   Los botones ▶ solo funcionan en tracks con ✓
+   Los botones ▷ (grises) están deshabilitados hasta que termine
+   
+   ╔═══════════════════════════════════════════════════════════╗
+   ║ 🔄 FLUJO DE TRABAJO                                       ║
+   ╚═══════════════════════════════════════════════════════════╝
+   
+   Ejemplo: Agregas 10 tracks .ncmp de 5 minutos cada uno
+   
+   • Agregas los archivos
+     └─> Todos muestran ⏳ (pendientes)
+     └─> Background: Empieza a decodificar track 1
+   
+   • Track 1 termina (~30 segundos después)
+     └─> Cambia de ⏳ a ✓
+     └─> Botón ▶ se habilita
+     └─> Background: Empieza track 2
+   
+   • Track 2 termina
+     └─> Cambia de ⏳ a ✓
+     └─> Background: Empieza track 3
+   
+   • ...continúa hasta completar todos
+   
+   Estado en pantalla:
+   • "Pre-decoding playlist (3/10)..." → Decodificando
+   • "Playlist ready (10 tracks cached)" → Todo listo ✓
+   
+   ╔═══════════════════════════════════════════════════════════╗
+   ║ 💡 VENTAJAS                                               ║
+   ╚═══════════════════════════════════════════════════════════╝
+   
+   ✓ Sabes exactamente qué tracks están listos (✓)
+   ✓ No puedes accidentalmente reproducir archivos no listos
+   ✓ Una vez decodificado: INSTANTÁNEO para siempre
+   ✓ Cache persistente: Próximas sesiones instantáneas
+   ✓ Background inteligente: No interrumpe tu flujo
+   ✓ Los tracks se decodifican en orden del playlist
+
+===============================================
+  ATAJOS Y TIPS
+===============================================
+
+- Double-click en la waveform para pausar/play
+- Los archivos .ncmp pueden tardar unos segundos en 
+  decodificar la primera vez
+- "Clear" limpia toda la playlist y detiene reproducción
+- El shuffle se regenera cada vez que agregas archivos
+- Si hay error al reproducir, verifica que ffmpeg esté
+  instalado correctamente
+
+===============================================
+  FORMATO DE ARCHIVOS SOPORTADOS
+===============================================
+
+Nativos (reproducción directa):
+- .wav (PCM, cualquier sample rate)
+- .mp3 (MPEG Layer 3)
+- .flac (Free Lossless Audio Codec)
+- .aac (Advanced Audio Coding)
+- .ogg (Ogg Vorbis)
+- .m4a (AAC en contenedor MP4)
+- .opus (Opus codec)
+
+DAC (decodificación automática):
+- .ncmp (DAC compressed, se decodifica a WAV temporalmente)
+
+===============================================
+  COMPORTAMIENTO DE LOOP
+===============================================
+
+Sin Loop:
+- Reproduce la playlist de inicio a fin
+- Se detiene al terminar el último track
+
+Loop All:
+- Al terminar el último track, vuelve al primero
+- Continúa infinitamente
+- Compatible con Shuffle
+
+Loop One:
+- Repite el track actual infinitamente
+- Ignora Shuffle
+- No avanza automáticamente
+
+Shuffle:
+- Orden aleatorio de reproducción
+- Se regenera al agregar archivos
+- Compatible con Loop All
+
+===============================================
+  ESTRUCTURA DE CACHE
+===============================================
+
+temp_decode/
+└── [nombre_archivo]_decoded.wav
+
+Los archivos .ncmp se decodifican aquí y se reutilizan.
+Puedes borrar esta carpeta para limpiar el cache.
+
+===============================================
+  TROUBLESHOOTING
+===============================================
+
+PROBLEMA: "Error: Decode failed"
+SOLUCIÓN: Verifica que el archivo .ncmp no esté corrupto
+          Ejecuta DAC6_Setup.bat para reinstalar dependencias
+
+PROBLEMA: "Audio error: ..."
+SOLUCIÓN: Cambia el dispositivo de audio en las preferencias
+          del sistema o reinicia la aplicación
+
+PROBLEMA: No se escucha nada
+SOLUCIÓN: Verifica que el volumen del slider esté > 0%
+          Verifica que sounddevice esté instalado
+          Verifica el dispositivo de audio del sistema
+
+PROBLEMA: Archivos .ncmp muy lentos al reproducir
+SOLUCIÓN: Con streaming progresivo, la reproducción empieza
+          en 1-2 segundos (solo decodifica el primer chunk).
+          Si sigue lento, verifica que ffmpeg esté instalado
+          y que no haya otros procesos usando la GPU.
+
+PROBLEMA: El audio se corta o salta entre chunks
+SOLUCIÓN: Esto no debería pasar gracias al overlap de 500ms.
+          Si ocurre, revisa dac6.log para errores de decodificación.
+          Puede ser que algún chunk falló al decodificar.
+
+PROBLEMA: "Buffering chunk X/Y..." se queda pegado
+SOLUCIÓN: El chunk puede estar tardando en decodificar.
+          Espera unos segundos. Si tarda mucho, verifica
+          que la GPU no esté ocupada con otra tarea.
+          Revisa dac6.log para ver el progreso.
+
+===============================================
+  VERSIÓN
+===============================================
+
+Playlist Player agregado en DAC6 v1.0
+Junio 2026

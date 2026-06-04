@@ -1,0 +1,74 @@
+DAC6 AUDIO COMPRESSOR - DIAGNOSTIC INFORMATION
+==============================================
+
+**PROBLEMA RESUELTO:**
+----------------------
+Los artefactos eran causados por el modo "Low VRAM" que procesaba
+en chunks muy pequeños. Esta opción ha sido ELIMINADA completamente.
+
+SOLUCIÓN IMPLEMENTADA:
+----------------------
+- Eliminada opción "Low VRAM mode" de la interfaz
+- Chunk size ahora configurable desde 10s hasta 300s (incrementos de 10s)
+- Default: 60 segundos (buen balance entre velocidad y uso de memoria)
+- **Overlap de 500ms entre chunks:** cada chunk tiene 500ms extra al inicio
+  y al final para evitar artefactos en las uniones. Después de procesar,
+  los bordes se descartan y solo se concatena la parte central.
+- El procesamiento ahora es consistente entre diferentes máquinas
+
+AMBIENTE ACTUAL (versión corregida):
+------------------------------------
+- Windows 10/11
+- Python 3.11.9 (instalado por DAC6_Setup.bat)
+- PyTorch 2.x con CUDA 12.1
+- descript-audio-codec (DAC) desde GitHub
+- ffmpeg 6.1.1 essentials build (gyan.dev)
+- numpy<2 (pinned para evitar crashes)
+
+CONFIGURACIÓN ACTUAL:
+---------------------
+1. Resample: ffmpeg con filter_size=256:phase_shift=10 (alta calidad)
+2. Codebooks: default 9 (opciones: 3, 4, 6, 8, 9, 12, 16)
+3. Chunk size: configurable 10-300s en incrementos de 10s (default 60s)
+4. **Overlap entre chunks:**
+   - Encoding: 500ms de overlap (22050 samples @ 44.1kHz)
+   - Decoding: 500ms de overlap (~43 frames con hop_length=512)
+   - Los bordes se descartan después del procesamiento
+   - Esto elimina discontinuidades y artefactos en las uniones
+5. Decode chunks: configurable via --chunk-frames (default 10000)
+
+CAMBIOS CRÍTICOS AL RESAMPLE:
+------------------------------
+Línea 125-147 en dac6_worker.py:
+    - Usa ffmpeg para resamplear a 44.1kHz con alta calidad
+    - Usa soundfile.read() para recargar (NO AudioSignal.load)
+    - AudioSignal construido desde numpy array
+    - Evita crashes de división por cero en codecs nativos
+
+ARCHIVOS INCLUIDOS:
+-------------------
+- dac6_gui.py       (GUI principal con chunk size selector mejorado)
+- dac6_worker.py    (worker subprocess sin Low VRAM mode)
+- dac6.py           (CLI version)
+- DAC6_Setup.bat    (instalador automatizado)
+- Diagnostic_Check.bat (script para verificar ambiente)
+
+RECOMENDACIONES DE USO:
+-----------------------
+1. **Chunk size:**
+   - GPU con 4GB VRAM: usa 60-90s
+   - GPU con 6GB+ VRAM: usa 120-180s para más velocidad
+   - GPU con poca VRAM: usa 30-40s (más lento pero seguro)
+
+2. **Codebooks:**
+   - 6 codebooks = ~9 kbps (tamaño mínimo, más artefactos)
+   - 9 codebooks = ~12 kbps (default, buen balance)
+   - 16 codebooks = ~21 kbps (máxima calidad)
+
+3. **Resample automático:**
+   - MP3/audio a 48kHz se convierte automáticamente a 44.1kHz
+   - Usa filtros de alta calidad (filter_size=256, phase_shift=10)
+
+COMANDO PARA VERIFICAR AMBIENTE:
+---------------------------------
+Ejecutar Diagnostic_Check.bat incluido en el paquete
