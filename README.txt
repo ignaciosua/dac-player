@@ -3,7 +3,8 @@
 ===============================================
 
 NEURAL AUDIO CODEC - ULTRA HIGH COMPRESSION
-Comprimes audio a 9-21 kbps con calidad perceptual
+Comprimes audio a 4-42 kbps con calidad perceptual
+(bitrate depende del modelo y codebooks)
 
 ===============================================
   INSTALACION
@@ -27,7 +28,11 @@ REQUISITOS:
 MODO GUI:
 - Ejecuta DAC6_Setup.bat para abrir la interfaz
 - Arrastra archivos MP3/WAV/FLAC
-- Ajusta Codebooks (9 = default, 16 = maxima calidad)
+- Selecciona Modelo (44khz/24khz/16khz)
+- Ajusta Codebooks segun modelo:
+  * 44khz: 3-9 codebooks
+  * 24khz: 3-32 codebooks  
+  * 16khz: 3-12 codebooks
 - Ajusta Chunk Size (60s = default)
 - Click "ENCODE ALL"
 
@@ -41,10 +46,22 @@ python dac6.py info archivo.dac9cb.ncmp
   CONFIGURACION
 ===============================================
 
-CODEBOOKS (calidad vs tamaño):
-- 6 codebooks  = ~9 kbps  (tamaño minimo)
-- 9 codebooks  = ~12 kbps (default, buen balance)
-- 16 codebooks = ~21 kbps (maxima calidad)
+MODELOS:
+- 44khz (max 9 cb)  = Musica, alta fidelidad
+- 24khz (max 32 cb) = Voz, podcasts, maxima calidad
+- 16khz (max 12 cb) = Telefonia, bajo ancho de banda
+
+CODEBOOKS - Modelo 44khz (calidad vs tamaño):
+- 3 codebooks = ~8 kbps  (ultra bajo bitrate)
+- 6 codebooks = ~14 kbps (tamaño reducido)
+- 9 codebooks = ~24 kbps (default, excelente balance)
+
+CODEBOOKS - Modelo 24khz (opciones adicionales):
+- 16 codebooks = ~42 kbps (muy alta calidad)
+- 24 codebooks = ~64 kbps (casi transparente)
+- 32 codebooks = ~84 kbps (maxima calidad)
+
+(Bitrates mostrados son para estereo)
 
 CHUNK SIZE (velocidad vs memoria GPU):
 - 30-60s  = seguro para GPUs con 4GB VRAM

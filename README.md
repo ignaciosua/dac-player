@@ -6,13 +6,13 @@
 
 ## 🎯 Features
 
-- **🗜️ COMPRESS** - Batch neural audio compression (9-21 kbps for music, ultra-low bitrates)
+- **🗜️ COMPRESS** - Batch neural audio compression (4-42 kbps for music, ultra-low bitrates)
 - **📂 RESTORE** - Decompress `.ncmp` files to WAV/FLAC/MP3
 - **🔍 A/B TEST** - Side-by-side quality comparison with synchronized playback
 - **🎵 PLAYER** - Built-in music player with playlist support, shuffle, and loop modes
 - **⚡ GPU Acceleration** - Fast processing with NVIDIA CUDA support
 - **📦 Batch Processing** - Drag & drop multiple files, process entire folders
-- **🎚️ Configurable Quality** - Choose codebooks (6-16) for size vs quality balance
+- **🎚️ Configurable Quality** - Choose codebooks (3-32) for size vs quality balance (model-dependent)
 - **🔊 HQ Resampling** - Automatic 44.1kHz resampling with high-quality filters
 
 ---
@@ -40,7 +40,7 @@
 
 Visit the official **[Descript Audio Codec demo page](https://descript.notion.site/Descript-Audio-Codec-11389fce0ce2419891d6591a68f814d5)** to listen to high-quality examples comparing original audio with DAC-compressed versions at various bitrates.
 
-The demos showcase DAC's transparent quality at ultra-low bitrates (6-16 kbps) across different types of content including music, speech, and environmental sounds.
+The demos showcase DAC's transparent quality at ultra-low bitrates (4-42 kbps) across different types of content including music, speech, and environmental sounds.
 
 ---
 
@@ -138,7 +138,8 @@ python dac6_gui.py
 2. **Select** the COMPRESS tab
 3. **Drag & drop** audio files (MP3, WAV, FLAC, AAC, OGG, M4A, Opus)
 4. **Configure** settings:
-   - **Codebooks**: 9 (default), 6 (smallest), 16 (highest quality)
+   - **Model**: 44khz (music), 24khz (speech), 16khz (voice)
+   - **Codebooks**: 3-9 (44khz), 3-32 (24khz), 3-12 (16khz)
    - **Chunk Size**: 60s (default), 120-300s (faster, more VRAM)
 5. **Click** "PROCESS ALL"
 6. **Test quality** in the A/B TEST tab
@@ -166,12 +167,26 @@ python dac6.py info input.dac9cb.ncmp
 
 ### Codebooks (Quality vs Size)
 
-| Codebooks | Bitrate | Use Case |
-|-----------|---------|----------|
-| 6 | ~9 kbps | Minimum size, voice/podcasts |
-| 9 | ~12 kbps | **Default**, excellent quality/size balance |
-| 12 | ~16 kbps | High quality music |
-| 16 | ~21 kbps | Maximum quality, near-transparent |
+**Model-dependent limits:** Each DAC model supports different maximum codebooks:
+- **44khz**: 3-9 codebooks (music, high-fidelity)
+- **24khz**: 3-32 codebooks (speech, podcasts)
+- **16khz**: 3-12 codebooks (voice, low-bandwidth)
+
+**Common configurations (44khz model):**
+
+| Codebooks | Bitrate/ch | Stereo Bitrate | Use Case |
+|-----------|------------|----------------|----------|
+| 3 | ~4 kbps | ~8 kbps | Ultra-low bitrate, voice |
+| 6 | ~7 kbps | ~14 kbps | Low bitrate, podcasts |
+| 9 | ~12 kbps | ~24 kbps | **Default**, excellent quality/size balance |
+
+**24khz model supports higher codebooks for specialized use:**
+
+| Codebooks | Bitrate/ch | Stereo Bitrate | Use Case |
+|-----------|------------|----------------|----------|
+| 16 | ~21 kbps | ~42 kbps | Very high quality |
+| 24 | ~32 kbps | ~64 kbps | Near-transparent quality |
+| 32 | ~42 kbps | ~84 kbps | Maximum quality (24khz model only) |
 
 ### Chunk Size (Speed vs VRAM)
 
@@ -183,9 +198,11 @@ python dac6.py info input.dac9cb.ncmp
 
 ### Models
 
-- **44.1 kHz** - Music, high-fidelity audio (default)
-- **24 kHz** - Speech, podcasts
-- **16 kHz** - Voice, low-bandwidth applications
+| Model | Sample Rate | Max Codebooks | Best For |
+|-------|-------------|---------------|----------|
+| **44khz** | 44.1 kHz | 9 | Music, high-fidelity audio (default) |
+| **24khz** | 24 kHz | 32 | Speech, podcasts, archival quality |
+| **16khz** | 16 kHz | 12 | Voice, telephony, low-bandwidth |
 
 ---
 
@@ -341,14 +358,19 @@ The codec achieves **perceptually transparent** quality at bitrates as low as 12
 
 ### Compression Ratios
 
+**Example: 5-minute stereo track (44.1 kHz, 16-bit)**
+
 | Format | Bitrate | File Size (5 min) | Compression Ratio |
 |--------|---------|-------------------|-------------------|
 | WAV (uncompressed) | 1411 kbps | 52.9 MB | 1:1 |
 | FLAC (lossless) | ~900 kbps | 33.8 MB | 1.6:1 |
 | MP3 320 kbps | 320 kbps | 12.0 MB | 4.4:1 |
 | MP3 128 kbps | 128 kbps | 4.8 MB | 11:1 |
-| **DAC 16 codebooks** | **21 kbps** | **0.8 MB** | **66:1** |
-| **DAC 9 codebooks** | **12 kbps** | **0.45 MB** | **118:1** |
+| **DAC 9 codebooks (44khz)** | **~24 kbps** | **~0.9 MB** | **~59:1** |
+| **DAC 6 codebooks (44khz)** | **~14 kbps** | **~0.5 MB** | **~106:1** |
+| **DAC 3 codebooks (44khz)** | **~8 kbps** | **~0.3 MB** | **~176:1** |
+
+*Note: Bitrates shown are for stereo (2 channels). Higher codebook values available with 24khz model (up to 32 codebooks).*
 
 ### Processing Speed (NVIDIA RTX 3060)
 
