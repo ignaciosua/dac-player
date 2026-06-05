@@ -833,13 +833,14 @@ class EncodeTab(ctk.CTkFrame):
                      text_color=MUTED).grid(row=0, column=0, sticky="w",
                                              padx=(14, 8), pady=8)
         self._cb_var = ctk.StringVar(value="9")
-        ctk.CTkOptionMenu(sf, values=["3", "4", "6", "8", "9", "12", "16"],
+        self._cb_menu = ctk.CTkOptionMenu(sf, values=["3", "4", "6", "8", "9"],
                           variable=self._cb_var, width=90,
                           fg_color=BORDER, button_color="#52525B",
                           button_hover_color=ACCENT, text_color=TEXT,
                           dropdown_fg_color=SURFACE,
                           command=self._update_est
-                          ).grid(row=0, column=1, sticky="w", padx=(0, 14), pady=8)
+                          )
+        self._cb_menu.grid(row=0, column=1, sticky="w", padx=(0, 14), pady=8)
 
         ctk.CTkLabel(sf, text="Model", font=("Segoe UI", 12),
                      text_color=MUTED).grid(row=1, column=0, sticky="w",
@@ -850,6 +851,7 @@ class EncodeTab(ctk.CTkFrame):
                           fg_color=BORDER, button_color="#52525B",
                           button_hover_color=ACCENT, text_color=TEXT,
                           dropdown_fg_color=SURFACE,
+                          command=self._on_model_change
                           ).grid(row=1, column=1, sticky="w", padx=(0, 14), pady=8)
 
         ctk.CTkLabel(sf, text="Output folder", font=("Segoe UI", 12),
@@ -895,6 +897,33 @@ class EncodeTab(ctk.CTkFrame):
             command=self._do_cancel, state="disabled",
         )
         self._cancel_btn.grid(row=0, column=1)
+
+    def _on_model_change(self, *_):
+        """Update available codebook options based on selected model."""
+        model = self._model_var.get()
+        # Model limits: 44khz=9, 24khz=32, 16khz=12
+        if model == "44khz":
+            max_cb = 9
+            options = ["3", "4", "6", "8", "9"]
+        elif model == "24khz":
+            max_cb = 32
+            options = ["3", "4", "6", "8", "9", "12", "16", "24", "32"]
+        else:  # 16khz
+            max_cb = 12
+            options = ["3", "4", "6", "8", "9", "12"]
+        
+        # Update dropdown options
+        self._cb_menu.configure(values=options)
+        
+        # Adjust current selection if it exceeds the limit
+        try:
+            current = int(self._cb_var.get())
+            if current > max_cb:
+                self._cb_var.set(str(max_cb))
+        except Exception:
+            self._cb_var.set(options[-1])  # Default to max available
+        
+        self._update_est()
 
     def _update_est(self, *_):
         try:
